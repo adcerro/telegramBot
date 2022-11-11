@@ -7,7 +7,7 @@ A simple telegram eco bot, at least for now
 
 ## General info
 This is the third hand-in of the computational project
-of discreet structures.
+of discrete structures.
 
 ## Technologies
 * Java 17
@@ -15,7 +15,7 @@ of discreet structures.
 * Maven
 
 ## Sources
-Started with a guide from https://core.telegram.org/bots/tutorial
+Started with a guide from https://core.telegram.org/bots/tutorial \
 Guide for the readme [here](https://github.com/ritaly/README-cheatsheet/blob/master/README.md)! 
 
 ## Contact
