@@ -1,22 +1,26 @@
-import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+import telegram.ext as te
+from telegram.ext import MessageHandler, Filters
+import logging
 
 #Cruasán icon by Icons8
-token = open('token.txt','r')
+mytoken = open('token.txt','r').readline()
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
+updater = te.Updater(mytoken)
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+dispatcher = updater.dispatcher
 
-if __name__ == '__main__':
-    application = ApplicationBuilder().token(token.readline()).build()
-    
-    start_handler = CommandHandler('start', start)
-    application.add_handler(start_handler)
-    
-    application.run_polling()
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                     level=logging.INFO)
+
+helpMessage ='Soy panaBot, un bot capaz de de varias cosas, estos son mis comandos: '
+
+def start(update: Update, context: te.CallbackContext):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Saludos!")
+
+def help(update: Update, context: te.CallbackContext):
+    context.bot.send_message(chat_id=update.effective_chat.id,text=helpMessage)
+
+dispatcher.add_handler(te.CommandHandler('start', start))
+dispatcher.add_handler(te.CommandHandler(['ayuda','help'], help))
+updater.start_polling()
