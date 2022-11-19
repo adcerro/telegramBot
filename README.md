@@ -10,9 +10,8 @@ This is the third hand-in of the computational project
 of discrete structures.
 
 ## Technologies
-* Java 17
+* Python
 * Telegram API
-* Maven
 
 ## Sources
 Started with a guide from https://core.telegram.org/bots/tutorial \
