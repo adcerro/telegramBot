@@ -28,7 +28,7 @@ def main():
     updater.start_webhook(listen="0.0.0.0",        
                         port=int(PORT),                       
                         url_path=mytoken) 
-    updater.bot.setWebhook('https://your-app-name.herokuapp.com/' + mytoken) 
+    updater.bot.setWebhook('https://panabot-heroku.herokuapp.com/' + mytoken) 
     dispatcher.add_handler(te.CommandHandler('start', start))
     dispatcher.add_handler(te.CommandHandler(['ayuda','help'], help))
     updater.idle()
