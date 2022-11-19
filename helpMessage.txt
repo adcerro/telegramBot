@@ -1,4 +1,4 @@
 Hola, soy panaBot, un bot capaz de muchas cosas
 Estos son mis comandos:
 */start - Te doy un saludo ;)
-*/ayuda - Te hablo de mi y mis comandos
+*/ayuda - Pongo todos mis comandos a tu disposición
