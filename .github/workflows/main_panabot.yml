@@ -65,6 +65,6 @@ jobs:
           app-name: 'panaBot'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6FECD87E627340B4A3ACD0617673106A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_59961A97EBAB42C9A345B7123E5EB89F }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
