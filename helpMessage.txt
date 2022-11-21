@@ -5,3 +5,4 @@ Estos son mis comandos:
 /variables - Lista de variables que puedes usar en mis comandos
 /plotunivariate
 /plotbivariate
+/describe

@@ -1,13 +1,15 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,ReplyKeyboardMarkup,KeyboardButton, ReplyKeyboardRemove
 import telegram.ext as te
 import logging
 import os
 import numpy as np
 
 list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
-buttons = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
-keys = InlineKeyboardMarkup(buttons)
-
+buttonsIn = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
+buttons = [[KeyboardButton(a,callback_data=list.index(a))] for a in list]
+keys = InlineKeyboardMarkup(buttonsIn)
+first =0
+second =1
 def start(update: Update, context: te.CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id, text=f"Saludos {update._effective_message.from_user.first_name}, para ver mis comandos usa /ayuda")
 
@@ -25,6 +27,18 @@ def plotuni(update: Update, context: te.CallbackContext):
     
 
 def plotbi(update: Update, context: te.CallbackContext):
+    options = ReplyKeyboardMarkup(buttons, one_time_keyboard=True,resize_keyboard=True)
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Ingrese primera variable',reply_markup=options)
+    return first
+    
+def secondvar(update: Update, context: te.CallbackContext):
+    options = ReplyKeyboardMarkup(buttons, one_time_keyboard=True,resize_keyboard=True)
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Ingrese segunda variable',reply_markup=options)   
+    return second
+def okay(update: Update, context: te.CallbackContext):   
+    return te.ConversationHandler.END
+
+def describe(update: Update, context: te.CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable:', reply_markup=keys)
 
 def online():
@@ -36,6 +50,9 @@ def online():
                         url_path=mytoken
                         ,webhook_url='https://panabot-h.herokuapp.com/' + mytoken) 
     return updater
+
+def cancel(update: Update, context: te.CallbackContext):
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Cancelado')
 
 def main():
     #Cruasán icon by Icons8
@@ -52,7 +69,14 @@ def main():
     dispatcher.add_handler(te.CommandHandler(['ayuda','help'], help))
     dispatcher.add_handler(te.CommandHandler('variables', variables))
     dispatcher.add_handler(te.CommandHandler('plotunivariate', plotuni))
-    dispatcher.add_handler(te.CommandHandler('plotbivariate', plotbi))
+    dispatcher.add_handler(te.ConversationHandler(
+    entry_points=[te.CommandHandler('plotbivariate', plotbi)],
+    states={
+        first: [te.MessageHandler(te.Filters.text,secondvar)],
+        second: [te.MessageHandler(te.Filters.text,okay)]
+    },fallbacks=[te.CommandHandler('cancelar', cancel)]))
+    dispatcher.add_handler(te.CommandHandler('describe', describe))
+   
     #updater.idle()
     updater.start_polling()
 
