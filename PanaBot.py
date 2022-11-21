@@ -17,18 +17,19 @@ def variables(update: Update, context: te.CallbackContext):
     for a in list : message= message+ a+'\n'
     context.bot.send_message(chat_id=update.effective_chat.id,text=message)
 
-def online(mytoken):
+def online():
+    mytoken = os.environ["TOKEN"]
     PORT = int(os.environ.get('PORT', '8443'))
-    mytoken.Updater.start_webhook(listen="0.0.0.0",        
+    te.Updater(mytoken).start_webhook(listen="0.0.0.0",        
                         port=int(PORT),                       
                         url_path=mytoken
                         ,webhook_url='https://panabot-h.herokuapp.com/' + mytoken) 
+    return mytoken
 
 def main():
     #Cruasán icon by Icons8
     #mytoken = open('token.txt','r').readline()
-    mytoken = os.environ["TOKEN"]
-    online(mytoken)
+    mytoken = online()
     
 
     updater = te.Updater(mytoken) 
