@@ -4,4 +4,4 @@ Estos son mis comandos:
 /ayuda - Te hablo de mi y mis comandos
 /variables - Lista de variables que puedes usar en mis comandos
 /plotunivariate
-/plotubivariate
+/plotbivariate

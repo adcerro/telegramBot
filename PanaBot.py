@@ -4,7 +4,7 @@ import logging
 import os
 import numpy as np
 
-list = ['Vivo','Clase','Sexo','Edad','Tiquete','Costo']
+list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
 buttons = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
 keys = InlineKeyboardMarkup(buttons)
 
