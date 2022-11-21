@@ -20,19 +20,19 @@ def variables(update: Update, context: te.CallbackContext):
 def online():
     mytoken = os.environ["TOKEN"]
     PORT = int(os.environ.get('PORT', '8443'))
-    te.Updater(mytoken).start_webhook(listen="0.0.0.0",        
+    updater = te.Updater(mytoken)
+    updater.start_webhook(listen="0.0.0.0",        
                         port=int(PORT),                       
                         url_path=mytoken
                         ,webhook_url='https://panabot-h.herokuapp.com/' + mytoken) 
-    return mytoken
+    return updater
 
 def main():
     #Cruasán icon by Icons8
     #mytoken = open('token.txt','r').readline()
-    mytoken = online()
     
-
-    updater = te.Updater(mytoken) 
+    #updater = te.Updater(mytoken) 
+    updater = online()
 
     dispatcher = updater.dispatcher
 
