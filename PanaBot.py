@@ -28,6 +28,7 @@ def online(mytoken):
 def main():
     #Cruasán icon by Icons8
     #mytoken = open('token.txt','r').readline()
+    mytoken=''
     online(mytoken)
     
 
