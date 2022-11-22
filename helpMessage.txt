@@ -1,8 +1,11 @@
-Hola, soy panaBot, un bot capaz de muchas cosas
+Hola, soy panaBot, un bot capaz de muchas cosas!
 Estos son mis comandos:
 /start - Te doy un saludo ;)
-/ayuda - Te hablo de mi y mis comandos
-/variables - Lista de variables que puedes usar en mis comandos
-/plotunivariate
-/plotbivariate
-/describe
+/ayuda o /help - Te hablo de mi y mis comandos.
+/variables - Lista de variables que puedes elegir en mis comandos.
+/cancelar - Detiene cualquier comando que este esperando entradas.
+
+Los siguientes comandos tienen una lista de variables que se puedes ver al usarlos.
+/plotunivariate - Graficar una variable.
+/plotbivariate - Graficar con dos variables.
+/describe - Retorna datos de la variable elegida,teniendo en cuenta si es descriptiva o categorica.

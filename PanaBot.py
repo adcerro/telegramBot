@@ -31,18 +31,18 @@ def main():
     dispatcher.add_handler(te.CommandHandler(['ayuda','help'], c.help))
 
     dispatcher.add_handler(te.CommandHandler('variables', c.variables))
-
+   
     dispatcher.add_handler(te.ConversationHandler(
     entry_points=[te.CommandHandler('plotbivariate', c.plotbi)],
     states={
-        first: [te.MessageHandler(te.Filters.text,c.secondvar)],
-        second: [te.MessageHandler(te.Filters.text,c.okay)]
-    },fallbacks=[te.CommandHandler('cancelar', c.cancel)]))
+        first : [te.CallbackQueryHandler(c.plotbi2)],
+        second : [te.CallbackQueryHandler(c.bihandler)]
+    },fallbacks=[te.CommandHandler('cancelar', c.cancel)],allow_reentry=True))
 
     dispatcher.add_handler(te.ConversationHandler(
     entry_points=[te.CommandHandler('describe', c.describe)],
     states={
-        desc : [te.CallbackQueryHandler(c.unihandler)]
+        desc : [te.CallbackQueryHandler(c.deschandler)]
     },fallbacks=[te.CommandHandler('cancelar', c.cancel)],allow_reentry=True))
 
     dispatcher.add_handler(te.ConversationHandler(

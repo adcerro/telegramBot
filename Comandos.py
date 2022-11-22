@@ -1,4 +1,4 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,ReplyKeyboardMarkup,KeyboardButton, ReplyKeyboardRemove
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton
 import telegram.ext as te
 
 
@@ -7,7 +7,7 @@ list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
 buttonsIn = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
 
 buttons = [[KeyboardButton(a,callback_data=list.index(a))] for a in list]
-
+storage = []
 keys = InlineKeyboardMarkup(buttonsIn)
 
 first, second, uni, desc = range(4)
@@ -26,20 +26,17 @@ def variables(update: Update, context: te.CallbackContext):
 def plotuni(update: Update, context: te.CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,text='Plot univariable \nSeleccione variable:', reply_markup=keys)
     return uni
-    
+
 def plotbi(update: Update, context: te.CallbackContext):
-    options = ReplyKeyboardMarkup(buttons, one_time_keyboard=True,resize_keyboard=True)
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Ingrese primera variable',reply_markup=options)
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Plot bivariable \nSeleccione variable 1:', reply_markup=keys)
     return first
-    
-def secondvar(update: Update, context: te.CallbackContext):
-    options = ReplyKeyboardMarkup(buttons, one_time_keyboard=True,resize_keyboard=True)
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Ingrese segunda variable',reply_markup=options)   
+
+def plotbi2(update: Update, context: te.CallbackContext):
+    query = update.callback_query
+    storage.append(query.data)
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable 2:', reply_markup=keys)
     return second
     
-def okay(update: Update, context: te.CallbackContext):   
-    return te.ConversationHandler.END
-
 def describe(update: Update, context: te.CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable:', reply_markup=keys)
     return desc
@@ -49,46 +46,16 @@ def cancel(update: Update, context: te.CallbackContext):
 
 def unihandler(update: Update, context: te.CallbackContext):
     query = update.callback_query
-    match query.data:
-        case '0':
-            pass
-        case '1':
-           pass
-        case '2':
-            pass
-        case '3':
-            pass
-        case '4':
-            pass
-        case '5':
-           pass 
-        case '6':
-            pass 
-        case '7':
-            pass
-        case '8':
-            pass 
+    print(list[int(query.data)])
     return te.ConversationHandler.END
 
 def deschandler(update: Update, context: te.CallbackContext):
     query = update.callback_query
-    match query.data:
-        case '0':
-            pass
-        case '1':
-           pass
-        case '2':
-            pass
-        case '3':
-            pass
-        case '4':
-            pass
-        case '5':
-           pass 
-        case '6':
-            pass 
-        case '7':
-            pass
-        case '8':
-            pass 
+    print(list[int(query.data)])
+    return te.ConversationHandler.END
+def bihandler(update: Update, context: te.CallbackContext):
+    query = update.callback_query
+    storage.append(query.data)
+    for i in storage:
+        print(list[int(i)])
     return te.ConversationHandler.END
