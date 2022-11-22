@@ -3,3 +3,6 @@ Estos son mis comandos:
 /start - Te doy un saludo ;)
 /ayuda - Te hablo de mi y mis comandos
 /variables - Lista de variables que puedes usar en mis comandos
+/plotunivariate
+/plotbivariate
+/describe
