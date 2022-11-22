@@ -4,6 +4,7 @@ import os
 import Comandos as c
 
 def online():
+    """Connects the bot to the webhook in heroku, using the token stored in the app"""
     mytoken = os.environ["TOKEN"]
     PORT = int(os.environ.get('PORT', '8443'))
     updater = te.Updater(mytoken)
