@@ -7,7 +7,7 @@ buttonsIn = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list
 
 buttons = [[KeyboardButton(a,callback_data=list.index(a))] for a in list]
 
-storage = []
+storage = ['0','0']
 
 keys = InlineKeyboardMarkup(buttonsIn)
 
