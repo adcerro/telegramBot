@@ -8,4 +8,4 @@ Estos son mis comandos:
 Los siguientes comandos tienen una lista de variables que se puedes ver al usarlos.
 /plotunivariate - Graficar una variable.
 /plotbivariate - Graficar con dos variables.
-/describe - Retorna datos de la variable elegida,teniendo en cuenta si es descriptiva o categorica.
+/describe - Retorna datos de la variable elegida, teniendo en cuenta si es descriptiva o categorica.
