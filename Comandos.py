@@ -58,7 +58,7 @@ def plotbi2(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    storage.append(query.data)
+    storage[0]=query.data
     context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable 2:', reply_markup=keys)
     return second
     
@@ -107,7 +107,7 @@ def bihandler(update: Update, context: te.CallbackContext):
     then an error message is sent by the bot.
     """
     query = update.callback_query
-    storage.append(query.data)
+    storage[1]=query.data
     if(storage[0]!=storage[1]):
         for i in storage:
             print(list[int(i)])
