@@ -1,38 +1,7 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,ForceReply
 import telegram.ext as te
 import logging
 import os
-import numpy as np
-
-list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
-buttonsIn = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
-keys = InlineKeyboardMarkup(buttonsIn)
-def start(update: Update, context: te.CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=f"Saludos {update._effective_message.from_user.first_name}, para ver mis comandos usa /ayuda")
-
-def help(update: Update, context: te.CallbackContext):
-    helpMessage = open('helpMessage.txt', 'r').read()
-    context.bot.send_message(chat_id=update.effective_chat.id,text=helpMessage)
-    
-
-def variables(update: Update, context: te.CallbackContext):
-    message='Lista de variables: \n'
-    for a in list : message= message+ a+'\n'
-    context.bot.send_message(chat_id=update.effective_chat.id,text=message)
-
-def plotuni(update: Update, context: te.CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable:', reply_markup=keys)
-    
-
-def plotbi(update: Update, context: te.CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Ingrese ambas variables separadas por ","',reply_markup=ForceReply() )
-    print(context.args)
-
-   
-    
-
-def describe(update: Update, context: te.CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Seleccione variable:', reply_markup=keys)
+import Comandos as c
 
 def online():
     mytoken = os.environ["TOKEN"]
@@ -44,29 +13,46 @@ def online():
                         ,webhook_url='https://panabot-h.herokuapp.com/' + mytoken) 
     return updater
 
-def cancel(update: Update, context: te.CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id,text='Cancelado')
 
+first, second, uni, desc = range(4)
 def main():
     #Cruasán icon by Icons8
-    mytoken = open('token.txt','r').readline()
-    updater = te.Updater(mytoken) 
-    #updater = online()
+    #mytoken = open('token.txt','r').readline()
+    #updater = te.Updater(mytoken) 
+    updater = online()
 
     dispatcher = updater.dispatcher
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
 
-    dispatcher.add_handler(te.CommandHandler('start', start))
-    dispatcher.add_handler(te.CommandHandler(['ayuda','help'], help))
-    dispatcher.add_handler(te.CommandHandler('variables', variables))
-    dispatcher.add_handler(te.CommandHandler('plotunivariate', plotuni))
-    dispatcher.add_handler(te.CommandHandler('plotbivariate', plotbi,pass_args=True))
-    dispatcher.add_handler(te.CommandHandler('describe', describe))
+    dispatcher.add_handler(te.CommandHandler('start', c.start))
+
+    dispatcher.add_handler(te.CommandHandler(['ayuda','help'], c.help))
+
+    dispatcher.add_handler(te.CommandHandler('variables', c.variables))
+
+    dispatcher.add_handler(te.ConversationHandler(
+    entry_points=[te.CommandHandler('plotbivariate', c.plotbi)],
+    states={
+        first: [te.MessageHandler(te.Filters.text,c.secondvar)],
+        second: [te.MessageHandler(te.Filters.text,c.okay)]
+    },fallbacks=[te.CommandHandler('cancelar', c.cancel)]))
+
+    dispatcher.add_handler(te.ConversationHandler(
+    entry_points=[te.CommandHandler('describe', c.describe)],
+    states={
+        desc : [te.CallbackQueryHandler(c.unihandler)]
+    },fallbacks=[te.CommandHandler('cancelar', c.cancel)],allow_reentry=True))
+
+    dispatcher.add_handler(te.ConversationHandler(
+    entry_points=[te.CommandHandler('plotunivariate', c.plotuni)],
+    states={
+        uni: [te.CallbackQueryHandler(c.unihandler)]
+    },fallbacks=[te.CommandHandler('cancelar', c.cancel)], allow_reentry=True))
    
-    #updater.idle()
-    updater.start_polling()
+    updater.idle()
+    #updater.start_polling()
 
 
 if __name__ == '__main__':
