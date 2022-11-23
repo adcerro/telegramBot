@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,Keyboard
 import telegram.ext as te
 import Data as da
 
-list = ['Sobrevivio','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
+list = ['Sobrevivio','Clase','Sexo','Edad','Hermanos-Pareja','Padres-Hijos','Tarifa','Cabina','Puerto']
 
 buttonsIn = [[InlineKeyboardButton(text=a,callback_data=a)] for a in list]
 
@@ -82,7 +82,8 @@ def unihandler(update: Update, context: te.CallbackContext):
     """Takes the input of the button in the /plotunivariate command
     
     The input is the callback data of the selected button, which is the index 
-    of the variable in the list of variables.
+    of the variable in the list of variables, then with the data it sends the plots
+    of that variable to the user.
     """
 
     query = update.callback_query
