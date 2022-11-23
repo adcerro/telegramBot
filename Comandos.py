@@ -1,6 +1,6 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton
 import telegram.ext as te
-#import Data as da
+import Data as da
 
 list = ['Sobrevivio','Clase','Sexo','Edad','Hermanos-Pareja','Padres-Hijos','Tarifa','Cabina','Puerto']
 
@@ -103,7 +103,11 @@ def deschandler(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    print(query.data)
+    context.bot.send_message(chat_id=update.effective_chat.id,text=f'Información descriptiva de: {query.data}')
+    if(query.data in ['Edad','Hermanos-Pareja','Padres-Hijos','Tarifa']):
+        context.bot.send_message(chat_id=update.effective_chat.id,text=da.desc(query.data))
+    else:
+        context.bot.send_message(chat_id=update.effective_chat.id,text=da.descCat(query.data))
     return te.ConversationHandler.END
 
 def bihandler(update: Update, context: te.CallbackContext):
