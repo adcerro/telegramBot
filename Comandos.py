@@ -3,7 +3,7 @@ import telegram.ext as te
 
 list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
 
-buttonsIn = [[InlineKeyboardButton(a,callback_data=list.index(a))] for a in list]
+buttonsIn = [[InlineKeyboardButton(text=a,callback_data=a)] for a in list]
 
 buttons = [[KeyboardButton(a,callback_data=list.index(a))] for a in list]
 
@@ -85,7 +85,7 @@ def unihandler(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    print(list[int(query.data)])
+    print(query.data)
     return te.ConversationHandler.END
 
 def deschandler(update: Update, context: te.CallbackContext):
@@ -96,7 +96,7 @@ def deschandler(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    print(list[int(query.data)])
+    print(query.data)
     return te.ConversationHandler.END
 
 def bihandler(update: Update, context: te.CallbackContext):
@@ -110,7 +110,7 @@ def bihandler(update: Update, context: te.CallbackContext):
     storage[1]=query.data
     if(storage[0]!=storage[1]):
         for i in storage:
-            print(list[int(i)])
+            print(i)
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,text='No se acepta la misma variable dos veces.')
 
