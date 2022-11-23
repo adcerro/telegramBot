@@ -126,11 +126,15 @@ def bihandler(update: Update, context: te.CallbackContext):
                 pass
         except:
             path =f'biplots/{storage[1].lower()}Y{storage[0].lower()}'
-            context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            except:
+                context.bot.send_message(chat_id=update.effective_chat.id,text=f'Lo siento! No tengo gráficas para: {storage[0]} y {storage[1]}')
             try: 
                 context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
             except:
                 pass
+
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,text='No se acepta la misma variable dos veces.')
 
