@@ -1,6 +1,6 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton
 import telegram.ext as te
-#import Data as da
+import Data as da
 
 list = ['Sobrevivio','Clase','Sexo','Edad','Hermanos-Pareja','Padres-Hijos','Tarifa','Cabina','Puerto']
 
@@ -103,7 +103,11 @@ def deschandler(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    print(query.data)
+    context.bot.send_message(chat_id=update.effective_chat.id,text=f'Información descriptiva de: {query.data}')
+    if(query.data in ['Edad','Hermanos-Pareja','Padres-Hijos','Tarifa']):
+        context.bot.send_message(chat_id=update.effective_chat.id,text=da.desc(query.data))
+    else:
+        context.bot.send_message(chat_id=update.effective_chat.id,text=da.descCat(query.data))
     return te.ConversationHandler.END
 
 def bihandler(update: Update, context: te.CallbackContext):
@@ -116,8 +120,25 @@ def bihandler(update: Update, context: te.CallbackContext):
     query = update.callback_query
     storage[1]=query.data
     if(storage[0]!=storage[1]):
-        for i in storage:
-            print(i)
+        context.bot.send_message(chat_id=update.effective_chat.id,text=f'Mostrando gráficas para: {storage[0]} y {storage[1]}')
+        try:
+            path =f'biplots/{storage[0].lower()}Y{storage[1].lower()}'
+            context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
+            except:
+                pass
+        except:
+            path =f'biplots/{storage[1].lower()}Y{storage[0].lower()}'
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            except:
+                context.bot.send_message(chat_id=update.effective_chat.id,text=f'Lo siento! No tengo gráficas para: {storage[0]} y {storage[1]}')
+            try: 
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
+            except:
+                pass
+
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,text='No se acepta la misma variable dos veces.')
 
