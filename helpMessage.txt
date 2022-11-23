@@ -6,9 +6,8 @@ Estos son mis comandos:
 /cancelar - Detiene cualquier comando que este esperando entradas.
 
 Los siguientes comandos tienen una lista de variables que puedes ver al usarlos.
-Las graficas o descripcion que desees ver, si esta disponible, se mostrará como respuesta
-una vez pulses el boton de la variable que quieras, ten en cuenta que una vez hecho esto, si quieres 
-volver a usar el mismo comando pero con otra variable debes volver al enviar el comando
+Las graficas o descripcion que desees ver, si esta disponible, se mostrará como respuesta.
+Una vez pulses el boton de la variable que quieras, ten en cuenta que si quieres volver a usar el mismo comando pero con otra variable debes volver al enviar el comando.
 /plotunivariate - Graficar una variable.
 /plotbivariate - Graficar con dos variables.
 /describe - Retorna datos de la variable elegida, teniendo en cuenta si es descriptiva o categorica.
