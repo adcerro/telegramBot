@@ -1,7 +1,8 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton
 import telegram.ext as te
+import Data as da
 
-list = ['Vivo','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
+list = ['Sobrevivio','Clase','Sexo','Edad','Tiquete','Tarifa','Cabina','Embarque']
 
 buttonsIn = [[InlineKeyboardButton(text=a,callback_data=a)] for a in list]
 
@@ -85,7 +86,12 @@ def unihandler(update: Update, context: te.CallbackContext):
     """
 
     query = update.callback_query
-    print(query.data)
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Mostrando gráficas para: '+query.data)
+    path =f'uniplots/{query.data.lower()}'
+    context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+    context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
+
+
     return te.ConversationHandler.END
 
 def deschandler(update: Update, context: te.CallbackContext):
