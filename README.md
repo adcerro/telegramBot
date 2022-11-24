@@ -8,7 +8,7 @@ A simple telegram bot that gives info about variables from a database of survivo
 ## General info
 This is the third hand-in of the computational project
 of discrete structures. A telegram bot that generates some plots and descriptions of variables from a specific database.
-It also lets you try and create some plots in case it doesn't have them. However, the results might not be aesthetically pleasing.
+It also lets you try and create some plots in case it doesn't have them. However, this feature is deactivated by default because the results might not be "aesthetically pleasing".
 
 ## Technologies
 * Python

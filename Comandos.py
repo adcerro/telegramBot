@@ -138,8 +138,8 @@ def bihandler(update: Update, context: te.CallbackContext):
                 context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
             except:
                 context.bot.send_message(chat_id=update.effective_chat.id,text=f'Lo siento! No tengo gráficas para: {storage[0]} y {storage[1]}')
-                context.bot.send_message(chat_id=update.effective_chat.id,text='Opiciones de gráfico manual:', reply_markup=keysG)
-                return plot
+                #context.bot.send_message(chat_id=update.effective_chat.id,text='Opiciones de gráfico manual:', reply_markup=keysG)
+                #return plot
             try: 
                 context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
             except:

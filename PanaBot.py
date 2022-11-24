@@ -38,7 +38,7 @@ def main():
     states={
         first : [te.CallbackQueryHandler(c.plotbi2)],
         second : [te.CallbackQueryHandler(c.bihandler)],
-        plot : [te.CallbackQueryHandler(c.manualhandler)]
+        #plot : [te.CallbackQueryHandler(c.manualhandler)]
     },fallbacks=[te.CommandHandler('cancelar', c.cancel)],allow_reentry=True))
 
     dispatcher.add_handler(te.ConversationHandler(
