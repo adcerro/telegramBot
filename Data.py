@@ -8,6 +8,7 @@ df['Cabina'] = df['Cabina'].str[0]
 df['Sexo'] = df['Sexo'].replace({'male':'Hombre', 'female':'Mujer'})
 df['Sobrevivio'] = df['Sobrevivio'].replace({0:'No', 1:'Si'})
 df['Puerto'] = df['Puerto'].replace({'S':'Southampton', 'C':'Cherbourg', 'Q' : 'Queenstown'})
+df_t = df.copy(deep = True)
 
 def desc(a):
     if(a=='Hermanos-Pareja'):
@@ -33,3 +34,57 @@ def descCat(a):
     result = result.replace('freq','Frecuen.')
     result = result.__add__(f'\nConteo por valor: \n{df[a].value_counts().to_string()}')
     return result
+
+def countPlot(a,b):
+    if(a=='Hermanos-Pareja'):
+        aa = 'HerEsp'
+    elif(a=='Padres-Hijos'):
+        aa='PadHij'
+    else:
+        aa=a
+    
+    if(b=='Hermanos-Pareja'):
+        bb = 'HerEsp'
+    elif(b=='Padres-Hijos'):
+        bb='PadHij'
+    else:
+        bb=b
+    ax = sns.countplot(x = aa, hue = bb, data = df);
+    
+    plt.savefig(f'biplots/manual{a}{b}')
+
+def barPlot(a,b):
+    if(a=='Hermanos-Pareja'):
+        aa = 'HerEsp'
+    elif(a=='Padres-Hijos'):
+        aa='PadHij'
+    else:
+        aa=a
+    
+    if(b=='Hermanos-Pareja'):
+        bb = 'HerEsp'
+    elif(b=='Padres-Hijos'):
+        bb='PadHij'
+    else:
+        bb=b
+    ax = sns.barplot(y = aa, x = bb, data =  df_t);    
+    plt.savefig(f'biplots/manual{a}{b}')
+
+def boxPlot(a,b):
+    if(a=='Hermanos-Pareja'):
+        aa = 'HerEsp'
+    elif(a=='Padres-Hijos'):
+        aa='PadHij'
+    else:
+        aa=a
+    
+    if(b=='Hermanos-Pareja'):
+        bb = 'HerEsp'
+    elif(b=='Padres-Hijos'):
+        bb='PadHij'
+    else:
+        bb=b
+
+    sns.boxplot(x=aa, y=bb, data = df)
+    
+    plt.savefig(f'biplots/manual{a}{b}')

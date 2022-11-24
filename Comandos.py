@@ -1,18 +1,22 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup,KeyboardButton
 import telegram.ext as te
 import Data as da
+import os as os
 
 list = ['Sobrevivio','Clase','Sexo','Edad','Hermanos-Pareja','Padres-Hijos','Tarifa','Cabina','Puerto']
+glist =['CountPlot','BarPlot','BoxPlot']
 
 buttonsIn = [[InlineKeyboardButton(text=a,callback_data=a)] for a in list]
 
-buttons = [[KeyboardButton(a,callback_data=list.index(a))] for a in list]
+buttonsInG = [[InlineKeyboardButton(text=b,callback_data=b)] for b in glist]
 
 storage = ['0','0']
 
 keys = InlineKeyboardMarkup(buttonsIn)
 
-first, second, uni, desc = range(4)
+keysG = InlineKeyboardMarkup(buttonsInG)
+
+first, second,plot, uni, desc = range(5)
 def start(update: Update, context: te.CallbackContext):
     """Sends a greeting message to the user"""
 
@@ -134,6 +138,8 @@ def bihandler(update: Update, context: te.CallbackContext):
                 context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
             except:
                 context.bot.send_message(chat_id=update.effective_chat.id,text=f'Lo siento! No tengo gráficas para: {storage[0]} y {storage[1]}')
+                context.bot.send_message(chat_id=update.effective_chat.id,text='Opiciones de gráfico manual:', reply_markup=keysG)
+                return plot
             try: 
                 context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}2.png','rb'))
             except:
@@ -141,6 +147,33 @@ def bihandler(update: Update, context: te.CallbackContext):
 
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,text='No se acepta la misma variable dos veces.')
+    
+    return te.ConversationHandler.END
 
     
+
+def manualhandler(update: Update, context: te.CallbackContext):
+    query = update.callback_query
+    path =f'biplots/manual{storage[0]}{storage[1]}'
+    context.bot.send_message(chat_id=update.effective_chat.id,text='Advertencia, la gráfica es generada por comando en base a su input, por lo que no se puede garantizar al 100 que sea el resultado esperado, o que sea fácil de leer')
+    match(query.data):
+        case'CountPlot':
+            da.countPlot(storage[0],storage[1])
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            except:
+                context.bot.send_message(chat_id=update.effective_chat.id,text='Lo siento! No pude gráficarlo')
+        case'BarPlot':
+            da.barPlot(storage[0],storage[1])
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            except:
+                context.bot.send_message(chat_id=update.effective_chat.id,text='Lo siento! No pude gráficarlo')
+        case'BoxPlot':
+            da.boxPlot(storage[0],storage[1])
+            try:
+                context.bot.send_photo(chat_id=update.effective_chat.id,photo=open(f'{path}.png','rb'))
+            except:
+                context.bot.send_message(chat_id=update.effective_chat.id,text='Lo siento! No pude gráficarlo')
+    os.remove(path=f'{path}.png')
     return te.ConversationHandler.END

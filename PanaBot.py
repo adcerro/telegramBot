@@ -15,7 +15,7 @@ def online():
     return updater
 
 
-first, second, uni, desc = range(4)
+first, second,plot, uni, desc = range(5)
 def main():
     #Cruasán icon by Icons8
     #mytoken = open('token.txt','r').readline()
@@ -37,7 +37,8 @@ def main():
     entry_points=[te.CommandHandler('plotbivariate', c.plotbi)],
     states={
         first : [te.CallbackQueryHandler(c.plotbi2)],
-        second : [te.CallbackQueryHandler(c.bihandler)]
+        second : [te.CallbackQueryHandler(c.bihandler)],
+        plot : [te.CallbackQueryHandler(c.manualhandler)]
     },fallbacks=[te.CommandHandler('cancelar', c.cancel)],allow_reentry=True))
 
     dispatcher.add_handler(te.ConversationHandler(
