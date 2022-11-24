@@ -53,8 +53,8 @@ def main():
         uni: [te.CallbackQueryHandler(c.unihandler)]
     },fallbacks=[te.CommandHandler('cancelar', c.cancel)], allow_reentry=True))
    
-    #updater.idle()
-    updater.start_polling()
+    updater.idle()
+    #updater.start_polling()
 
 
 if __name__ == '__main__':
