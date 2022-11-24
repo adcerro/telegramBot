@@ -1,13 +1,19 @@
 Hola, soy panaBot, un bot que muestra graficas e información de la base de datos de sobrevivientes del Titanic!
 Estos son mis comandos:
+
 /start - Te doy un saludo ;)
+
 /ayuda o /help - Te hablo de mi y mis comandos.
+
 /variables - Lista de variables que puedes elegir en mis comandos.
+
 /cancelar - Detiene cualquier comando que este esperando entradas.
 
 Los siguientes comandos tienen una lista de variables que puedes ver al usarlos.
 Las graficas o descripcion que desees ver, si esta disponible, se mostrará como respuesta.
 Una vez pulses el boton de la variable que quieras, ten en cuenta que si quieres volver a usar el mismo comando pero con otra variable debes volver al enviar el comando.
 /plotunivariate - Graficar una variable.
+
 /plotbivariate - Graficar con dos variables (En caso de no haber una gráfica disponible se le permitirá generar una bar/box/count plot con las variables deseadas, pero no se garantiza que el resultado sea conciso).
+
 /describe - Retorna datos de la variable elegida, teniendo en cuenta si es descriptiva o categorica.
